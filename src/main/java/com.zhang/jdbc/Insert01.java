@@ -3,14 +3,14 @@ package com.zhang.jdbc;
 import com.zhang.utils.JdbcUtils;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileInputStream;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
+
 
 public class Insert01 {
 
