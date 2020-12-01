@@ -1,5 +1,6 @@
 package com.zhang.jdbc;
 
+import com.zhang.utils.JdbcUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
@@ -16,17 +17,8 @@ public class Insert01 {
     @Test
     public void  insert01()throws Exception{
 
-        FileInputStream fis=new FileInputStream("src/jdbc.properties");
-        Properties properties=new Properties();
-        properties.load(fis);
-        String user = properties.getProperty("user");
-        String password = properties.getProperty("password");
-        String url = properties.getProperty("url");
-        String driver = properties.getProperty("driver");
 
-        Class.forName(driver);
-
-        Connection connection = DriverManager.getConnection(url, user, password);
+        Connection connection =JdbcUtils.getConnection();
         String sql="insert into customers(`name`,email,birth) values (?,?,?)";
 
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -39,7 +31,7 @@ public class Insert01 {
         ps.execute();
         ps.close();
         connection.close();
-        fis.close();
+       JdbcUtils.close(ps,connection);
 
     }
 }
