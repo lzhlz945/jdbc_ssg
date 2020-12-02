@@ -4,10 +4,10 @@ import com.zhang.utils.JdbcUtils;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.jws.soap.SOAPBinding;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +60,61 @@ public class Query01 {
             }
         }
 
+
+    }
+
+    public static List<User> getCommensQuery(String sql,Object ...args){
+
+        Connection con=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        User user=null;
+        List<User> list=new ArrayList<>();
+        try {
+
+            con = JdbcUtils.getConnection();
+            ps=con.prepareStatement(sql);
+            for (int i = 0; i < args.length; i++) {
+                ps.setObject(i+1,args[i]);
+            }
+            rs=ps.executeQuery();
+            ResultSetMetaData metaData = ps.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            while (rs.next()){
+                user=new User();
+                for (int i = 0; i < columnCount; i++) {
+                    Object columnValues = rs.getObject(i + 1);
+                    String columnName = metaData.getColumnName(i + 1);
+                    Class uClass=User.class;
+                    Field field = uClass.getDeclaredField(columnName);
+                    field.setAccessible(true);
+                    field.set(user,columnValues);
+                }
+                list.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.close(ps,con);
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
+    }
+
+    @Test
+    public void test02(){
+        String sql="select id,name,password,address,phone from user ";
+        List<User> list = getCommensQuery(sql);
+
+        for (User user : list) {
+            System.out.println(user);
+        }
 
     }
 
