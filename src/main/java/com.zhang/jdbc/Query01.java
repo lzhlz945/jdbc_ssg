@@ -63,12 +63,12 @@ public class Query01 {
 
     }
 
-    public static List<User> getCommensQuery(String sql,Object ...args){
+    public static List<User> getCommonsQuery(String sql,Object ...args){
 
         Connection con=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
-        User user=null;
+
         List<User> list=new ArrayList<>();
         try {
 
@@ -81,16 +81,18 @@ public class Query01 {
             ResultSetMetaData metaData = ps.getMetaData();
             int columnCount = metaData.getColumnCount();
             while (rs.next()){
-                user=new User();
+                User user=new User();
                 for (int i = 0; i < columnCount; i++) {
                     Object columnValues = rs.getObject(i + 1);
                     String columnName = metaData.getColumnName(i + 1);
                     Class uClass=User.class;
+                    Constructor constructor = uClass.getDeclaredConstructor();
+                    constructor.setAccessible(true);
                     Field field = uClass.getDeclaredField(columnName);
                     field.setAccessible(true);
                     field.set(user,columnValues);
                 }
-                list.add(user);
+                    list.add(user);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,11 +112,13 @@ public class Query01 {
     @Test
     public void test02(){
         String sql="select id,name,password,address,phone from user ";
-        List<User> list = getCommensQuery(sql);
-
-        for (User user : list) {
-            System.out.println(user);
+        User user=new User();
+        List<User>  list= getCommonsQuery(sql);
+        for (User user1 : list) {
+            System.out.println(user1);
         }
+
+
 
     }
 
