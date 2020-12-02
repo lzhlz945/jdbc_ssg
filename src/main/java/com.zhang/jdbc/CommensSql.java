@@ -39,4 +39,18 @@ public class CommensSql {
         commensSql(sql,20);
 
     }
+    @Test
+    public void test01(){
+
+        int sum = sum(10, 10, 20);
+        System.out.println(sum);
+
+    }
+    public int sum(int ...args){
+        int sum=0;
+        for (int i = 0; i < args.length; i++) {
+            sum+=args[i];
+        }
+        return sum;
+    }
 }
