@@ -15,6 +15,11 @@ import java.util.List;
  * @version: v1.0
  * @description: com.zhang.jdbc 泛型方法
  * @date:2020/12/2
+ *
+ * preparedStatement 预编译 and 就是and 编译好了防止sql拼接改变结构
+ * 批量插入高效
+ *
+ *
  */
 public class CommonsQuery1 {
     public static  <T> List<T> getCommonsQuery1(String sql, T obj, Object ...args){
@@ -113,8 +118,7 @@ public class CommonsQuery1 {
     @Test
     public void test02(){
         String sql="select id,name,password,address,phone from user ";
-        User user=new User();
-        List<User> uList = getCommonsQuery1(sql, user);
+        List<User> uList = getCommonsQuery1(sql, User.class);
         for (User user1 : uList) {
             System.out.println(user1);
         }
