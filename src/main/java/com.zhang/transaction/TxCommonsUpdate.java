@@ -24,7 +24,7 @@ public class TxCommonsUpdate {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.closeJdbc(ps,null);
+            JDBCUtils.closeJdbc(null,ps,null);
         }
     }
 }

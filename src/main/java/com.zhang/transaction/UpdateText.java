@@ -19,7 +19,7 @@ public class UpdateText {
     public void test01(){
         Connection con =null;
         try {
-            con = JDBCUtils.getJdbcConnnection();
+            con = JDBCUtils.getJdbcConnection();
             System.out.println(con.getAutoCommit());
             con.setAutoCommit(false);
             String sq1="UPDATE user_table set balance=balance-100 WHERE `user`=?";
@@ -37,7 +37,7 @@ public class UpdateText {
                 e1.printStackTrace();
             }
         } finally {
-            JDBCUtils.closeJdbc(null,con);
+            JDBCUtils.closeJdbc(null,null,con);
         }
 
 

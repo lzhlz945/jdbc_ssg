@@ -1,10 +1,7 @@
 package com.zhang.transaction;
 
 import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 /**
@@ -15,7 +12,7 @@ import java.util.Properties;
  */
 public class JDBCUtils {
 
-    public static Connection getJdbcConnnection() throws Exception{
+    public static Connection getJdbcConnection() throws Exception{
 
         FileInputStream fis=new FileInputStream("src/jdbc.properties");
         Properties ps=new Properties();
@@ -29,7 +26,7 @@ public class JDBCUtils {
         return conn;
     }
 
-    public static void closeJdbc(Statement ps,Connection conn){
+    public static void closeJdbc(ResultSet rs,Statement ps, Connection conn){
 
         if(ps != null){
             try {
@@ -44,6 +41,14 @@ public class JDBCUtils {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        if(rs !=null){
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
