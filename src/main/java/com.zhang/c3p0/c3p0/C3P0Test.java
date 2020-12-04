@@ -36,9 +36,9 @@ public class C3P0Test {
 
     }
     //c3p0使用配置文件链接
+       private static ComboPooledDataSource cpds=new ComboPooledDataSource("hellpc3p0");
     @Test
     public void test() throws SQLException {
-        ComboPooledDataSource cpds=new ComboPooledDataSource("hellpc3p0");
         Connection connection = cpds.getConnection();
         System.out.println(connection);
 
