@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -17,18 +18,24 @@ import java.util.Properties;
  */
 public class DBCPTest {
 
-    @Test
-    public void test(){
+    //连接池不能频繁创建放在静态代码块中
+    private static  DataSource source;
+    static{
         try {
             FileInputStream fis=new FileInputStream("E:\\jdbc_ssg\\src\\main\\java\\com.zhang\\dbcp\\dbcp.properties");
             Properties properties=new Properties();
             properties.load(fis);
-            DataSource source = BasicDataSourceFactory.createDataSource(properties);
-            Connection con = source.getConnection();
-            System.out.println(con);
+             source = BasicDataSourceFactory.createDataSource(properties);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Connection test() throws SQLException {
+
+            Connection con = source.getConnection();
+            return con;
 
     }
 }
