@@ -20,7 +20,7 @@ public class DruidTest {
     private static DataSource source;
     static {
         try {
-            FileInputStream fis=new FileInputStream("");
+            FileInputStream fis=new FileInputStream("E:\\jdbc_ssg\\src\\main\\java\\com.zhang\\druid\\druid.properties");
             Properties properties=new Properties();
             properties.load(fis);
             source= DruidDataSourceFactory.createDataSource(properties);
