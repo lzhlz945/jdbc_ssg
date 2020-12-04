@@ -62,7 +62,7 @@ public class JdbcUtils {
         }
     }
 
-    public Connection getConnectionByDurid() throws SQLException {
+    public static Connection getConnectionByDriud() throws SQLException {
         Connection connection = duridSource .getConnection();
         return connection;
     }
@@ -81,7 +81,7 @@ private static  DataSource dbcpSource;
         }
     }
 
-    public static Connection test() throws SQLException {
+    public static Connection getConnectionDbcp() throws SQLException {
 
         Connection con = dbcpSource.getConnection();
         return con;
