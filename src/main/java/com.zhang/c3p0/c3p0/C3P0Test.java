@@ -35,4 +35,12 @@ public class C3P0Test {
        // DataSources.destroy(cpds);
 
     }
+    //c3p0使用配置文件链接
+    @Test
+    public void test() throws SQLException {
+        ComboPooledDataSource cpds=new ComboPooledDataSource("hellpc3p0");
+        Connection connection = cpds.getConnection();
+        System.out.println(connection);
+
+    }
 }
